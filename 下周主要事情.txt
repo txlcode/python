@@ -1,0 +1,36 @@
+﻿
+
+准备审核环境
+
+server {
+    listen  8001;
+    listen  [::]:8001 ssl ipv6only=on;
+    server_name  www.***.com;
+    ssl_certificate      /home/key/www/public.pem;
+    ssl_certificate_key  /home/key/www/public.key;
+    ssl on;
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+
+    location / {
+        if ($http_user_agent > "version/v1.0" ) {
+            proxy_pass  http://172.17.0.1:9001;
+        }
+        proxy_pass http://172.17.0.1:7001;
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+    }
+}
+
+跨域名
+申请新的域名
+
+Parent
+Child
+HelloWorld from Parent
+Child bar function
+
+
